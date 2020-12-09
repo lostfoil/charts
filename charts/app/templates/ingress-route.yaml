@@ -13,13 +13,11 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-{{- if .Values.ingressRoute.entryPoints }}
   entryPoints:
-  {{- range .Values.ingressRoute.entryPoints }}
+    {{- range .Values.ingressRoute.entryPoints }}
     - {{ . | quote }}
-  {{- end }}
-{{- end }}
-  routes:
+    {{- end }}
+  routes: |-
   {{- range .Values.ingressRoute.routes }}
     - match: {{ .rule | quote }}
       kind: Rule
@@ -31,11 +29,17 @@ spec:
   {{- with .Values.ingressRoute.tls }}
   tls:
     secretName: {{ $tlsSecret }}
-    options:
+    options: 
       {{- toYaml .options | nindent 6 }}
-    certResolver: {{- .certResolver | quote }}
+    certResolver: {{ .certResolver | quote }}
     domains:
-      {{- toYaml .domains | nindent 6 }}
+      {{- range .domains }}
+      - main: {{ .main | quote }}
+        sans: |-
+          {{- range .sans }}
+          - {{ . | quote }}
+          {{- end }}
+      {{- end }}
   {{- end }}
   {{- end }}
 {{- end }}

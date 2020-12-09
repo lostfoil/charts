@@ -65,16 +65,16 @@ Create the name of the service account to use
 {{/*
 Create the imagePullSecret
 */}}
-{{- define "app.imagePullSecret" }}
+{{- define "app.imagePullSecret" -}}
 {{- if .Values.imageCredentials.enabled -}}
-{{- with .Values.imageCredentials }}
-{{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" .registry .username .password .email (printf "%s:%s" .username .password | b64enc) | b64enc }}
+{{- with .Values.imageCredentials -}}
+{{- printf "{\"auths\":{\"%s\":{\"username\":\"%s\",\"password\":\"%s\",\"email\":\"%s\",\"auth\":\"%s\"}}}" .registry .username .password .email (printf "%s:%s" .username .password | b64enc) | b64enc -}}
 {{- end -}}
-{{- end }}
-{{- end }}
+{{- end -}}
+{{- end -}}
 
 {{- define "app.ingressSecret" -}}
-{{ $secretName := include "app.name" . }}
-{{ $gen := printf "%s-%s" $secretName "tls-cert" }}
-{{- default $gen .Values.ingressRoute.tls.secretName }}
+{{- $secretName := include "app.name" . -}}
+{{- $gen := printf "%s-%s" $secretName "tls-cert" -}}
+{{- default $gen .Values.ingressRoute.tls.secretName -}}
 {{- end -}}

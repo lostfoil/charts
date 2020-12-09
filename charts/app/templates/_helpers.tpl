@@ -72,9 +72,3 @@ Create the imagePullSecret
 {{- end -}}
 {{- end -}}
 {{- end -}}
-
-{{- define "app.ingressSecret" -}}
-{{- $secretName := include "app.name" . -}}
-{{- $gen := printf "%s-%s" $secretName "tls-cert" -}}
-{{- default $gen .Values.ingressRoute.tls.secretName -}}
-{{- end -}}

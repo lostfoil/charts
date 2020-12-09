@@ -1,7 +1,6 @@
 {{- if .Values.ingressRoute.enabled -}}
 {{- $fullName := include "app.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- $tlsSecret := include "app.ingressSecret" . -}}
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
@@ -17,7 +16,7 @@ spec:
     {{- range .Values.ingressRoute.entryPoints }}
     - {{ . | quote }}
     {{- end }}
-  routes: |-
+  routes:
   {{- range .Values.ingressRoute.routes }}
     - match: {{ .rule | quote }}
       kind: Rule
@@ -28,14 +27,13 @@ spec:
   {{- if .Values.ingressRoute.tlsEnabled }}
   {{- with .Values.ingressRoute.tls }}
   tls:
-    secretName: {{ $tlsSecret }}
     options: 
       {{- toYaml .options | nindent 6 }}
     certResolver: {{ .certResolver | quote }}
     domains:
       {{- range .domains }}
       - main: {{ .main | quote }}
-        sans: |-
+        sans:
           {{- range .sans }}
           - {{ . | quote }}
           {{- end }}

@@ -59,8 +59,6 @@ ingressRoute:
   # Make this false to disable TLS.
   tlsEnabled: true
   tls:
-    # Secret name to store the certificate. If empty a name will be generated.
-    secretName:
     # Reference to a Traefik TLSOption
     options: {}
     #   name: opt

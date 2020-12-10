@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   app:
   - apiVersion: v2
+    created: "2020-12-10T21:46:05.504157032Z"
+    description: A Helm chart for LostFoil Applications
+    digest: 72fa333e3a5ff16682f36e801f9decdeb4dccc1aa4ab43a78fefb74250288cc8
+    name: app
+    type: application
+    urls:
+    - https://github.com/lostfoil/charts/releases/download/app-0.3.2/app-0.3.2.tgz
+    version: 0.3.2
+  - apiVersion: v2
     created: "2020-12-09T22:56:41.522122759Z"
     description: A Helm chart for LostFoil Applications
     digest: 7ae839b4baffc591168382fbc1d64804dc4ff418bee1f71bb761bf3ddfe18b27

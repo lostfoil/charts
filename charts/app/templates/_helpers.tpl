@@ -72,3 +72,12 @@ Create the imagePullSecret
 {{- end -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create a default fully qualified name for Postgres cluster.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+TeamId is appended as it's a requirement for the Zalando Postgres Operator.
+*/}}
+{{- define "app.dbName" -}}
+{{- printf "%s-%s" .Values.postgres.teamId (include "app.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}

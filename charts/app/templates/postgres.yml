@@ -1,0 +1,21 @@
+{{- if .Values.postgres.create -}}
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: {{ include "app.dbName" . }}
+  labels:
+    {{- include "app.labels" . | nindent 4 }}
+spec:
+  teamId: "{{ .Values.postgres.teamId }}"
+  volume:
+    size: "{{ .Values.postgres.volumeSize }}"
+  numberOfInstances: {{ .Values.postgres.numberOfInstances }}
+  users:
+    {{ .Values.postgres.user }}:
+    - superuser
+    - createdb
+  databases:
+    {{ .Values.postgres.dbName }}: "{{ .Values.postgres.user }}"
+  postgresql:
+    version: "{{ .Values.postgres.version }}"
+{{- end -}}
